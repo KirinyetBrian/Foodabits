@@ -56,7 +56,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
     <header className={`site-header ${!onTop ? 'site-header--fixed' : ''}`}>
       <div className="container">
         <Link href="/">
-          <a><h1 className="site-logo"><Logo />Foodabits</h1></a>
+          <a><h1 className="site-logo">Foodabits</h1></a>
         </Link>
         <nav ref={navRef} className={`site-nav ${menuOpen ? 'site-nav--open' : ''}`}>
           <Link href="/products">
@@ -71,7 +71,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
           <button ref={searchRef} className={`search-form-wrapper ${searchOpen ? 'search-form--active' : ''}`}>
             <form className={`search-form`}>
               <i className="icon-cancel" onClick={() => setSearchOpen(!searchOpen)}></i>
-              <input type="text" name="search" placeholder="Enter the product you are looking for" />
+              <input type="text" name="search" placeholder="Search recipes" />
             </form>  
             <i onClick={() => setSearchOpen(!searchOpen)}  className="icon-search"></i>
           </button>

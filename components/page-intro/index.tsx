@@ -9,10 +9,10 @@ const PageIntro = () => {
     <section className="page-intro">  
       <Swiper navigation effect="fade" className="swiper-wrapper">
         <SwiperSlide>
-          <div className="page-intro__slide" style={{ backgroundImage: "url('/images/slide-1.jpg')" }}>
+          <div className="page-intro__slide" style={{ backgroundImage: "url('/images/slider-9.jpg')" }}>
             <div className="container">
               <div className="page-intro__slide__content">
-                <h2>What to eat today?</h2>
+                <h2>What do you want to cook?</h2>
                 <a href="/products" className="btn-shop"><i className="icon-right"></i>Explore</a>
               </div>
             </div>
@@ -20,7 +20,7 @@ const PageIntro = () => {
         </SwiperSlide>
 
         <SwiperSlide>
-          <div className="page-intro__slide" style={{ backgroundImage: "url('/images/slide-2.jpg')" }}>
+          <div className="page-intro__slide" style={{ backgroundImage: "url('/images/slider-1.jpg')" }}>
             <div className="container">
               <div className="page-intro__slide__content">
                 <h2>Thousands of recipes to choose from </h2>
@@ -37,24 +37,24 @@ const PageIntro = () => {
             <li>
               <i className="icon-shipping"></i>
               <div className="data-item__content">
-                <h4>Free Shipping</h4>
-                <p>On purchases over $199</p>
+                <h4>Eat Healthy</h4>
+                <p>We help you decide what to eat instantly</p>
               </div>
             </li>
             
             <li>
               <i className="icon-shipping"></i>
               <div className="data-item__content">
-                <h4>99% Satisfied Customers</h4>
-                <p>Our clients' opinions speak for themselves</p>
+                <h4>Lots of recipes</h4>
+                <p>Choose from thousands of recipes</p>
               </div>
             </li>
             
             <li>
               <i className="icon-cash"></i>
               <div className="data-item__content">
-                <h4>Originality Guaranteed</h4>
-                <p>30 days warranty for each product from our store</p>
+                <h4>No skipping meals</h4>
+                <p>We remind you when to eat</p>
               </div>
             </li>
           </ul>

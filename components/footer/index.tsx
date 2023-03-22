@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="container">
         <div className="site-footer__top">
           <div className="site-footer__description">
-            <h6><Logo /> <span></span>Foodabits</h6>
+            <h6> <span></span>Foodabits</h6>
             <p>Decide what to eat without much hassle</p>
             <ul className="site-footer__social-networks">
               <li><a href="#"><i className="icon-facebook"></i></a></li>

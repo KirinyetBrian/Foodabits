@@ -7,7 +7,7 @@ type LayoutType = {
   children?: React.ReactNode;
 }
 
-export default ({ children, title = 'Foodie' }: LayoutType) => {
+export default ({ children, title = 'Foodabits' }: LayoutType) => {
   const router = useRouter();
   const pathname = router.pathname;
 
