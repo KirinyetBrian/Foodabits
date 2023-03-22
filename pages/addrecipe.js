@@ -12,12 +12,44 @@ import { useAuth } from '/src/hooks/auth';
 import { useState, useEffect } from "react";
 
 const newRecipe = () => {
-
+  
   const { register, handleSubmit, errors } = useForm();
   const { user } = useAuth({ middleware: 'auth' })
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
+  const [categories, setCategories] = useState([]);
 
+  // const categories =  axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Category`,{
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'Accept': 'application/json',
+  // }})
+  // .then(response => {
+  //   console.log(response)
+  //   return response
+  // })
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Category`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          }
+        });
+
+        setCategories(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchCategories();
+  }, []);
+
+  
+   
+// console.log("data:"+categories)
   useEffect(() => {
     if (selectedImage) {
       setImageUrl(URL.createObjectURL(selectedImage));
@@ -80,7 +112,13 @@ const results = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Rec
     }
     
 
-
+   // console.log("categories:"+categories.data)
+    // const responseArray = JSON.parse(categories);
+    // const mappedResponse = responseArray.map(obj => {
+     
+    //   return obj;
+    // });
+    // console.log("categories:"+fetchCategories);
   return (
     <Layout>
        <ToastContainer autoClose={8000} />
@@ -129,23 +167,23 @@ const results = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Rec
                 />
                 
               </div> */}
-                    <div className="form__input-row">
-            <input 
-              className="form__input" 
-              type="file" 
-              placeholder="image" 
-              name="image_url"
-              required
-              onChange={(e) => setSelectedImage(e.target.files[0])}
-            />
-            {imageUrl && (
-            <img src={imageUrl} 
-            alt="Selected Image" 
-            style={{ maxWidth: '100%', maxHeight: '300px' }}
-            />
+              <div className="form__input-row" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <input 
+                  className="form__input" 
+                  type="file" 
+                  placeholder="image" 
+                  name="image_url"
+                  required
+                  onChange={(e) => setSelectedImage(e.target.files[0])}
+                />
+                {imageUrl && (
+                  <img src={imageUrl} 
+                    alt="Selected Image" 
+                    style={{ maxWidth: '100%', maxHeight: '300px' }}
+                  />
+                )}
+              </div>
 
-            )}
-          </div>
 
 
               <div className="form__input-row">
@@ -171,25 +209,23 @@ const results = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Rec
 
 
               <div className="form__input-row">
-                <input 
-                  className="form__input" 
-                  type="text" 
-                  placeholder="difficulty" 
-                  name="difficulty"
-                  required
-                />
-             
+                <select className="form__input" name="difficulty" required>
+                  <option value="">-- Select difficulty --</option>
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
               </div>
 
               <div className="form__input-row">
-                <input 
-                  className="form__input" 
-                  type="text" 
-                  placeholder="category" 
-                  name="category_id"
+                <select className="form__input" name="category_id" required>
                  
-                />
-               
+                  <option value="">-- Select Category --</option>
+                
+                  {categories.map((category) => (
+        <option key={category.id} value={category.id}>{category.category}</option>
+      ))}
+                </select>
               </div>
 
               <div className="form__input-row">
@@ -223,6 +259,33 @@ const results = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Rec
     </Layout>
   )
 }
+
+// export async function getServerSideProps() {
+//   const res = await axios.get(
+//       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Category`,
+//       {
+//          method: 'get',
+//       headers: {
+//            'Content-Type': 'application/json',
+//           'Accept': 'application/json',
+//       }}
+//   )
+  
+
+//   const categories = await res.json()
+//  console.log("console:"+JSON.stringify(categories))
+
+//   return {
+//       props: {
+//         categories,
+        
+//       },
+//   }
+// }
+
+
+
+
   
 export default newRecipe
   
