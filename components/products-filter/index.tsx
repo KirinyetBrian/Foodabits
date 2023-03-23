@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Checkbox from './form-builder/checkbox';
 import CheckboxColor from './form-builder/checkbox-color';
 import Slider from 'rc-slider';
@@ -7,16 +6,39 @@ import Slider from 'rc-slider';
 import productsTypes from './../../utils/data/products-types';
 import productsColors from './../../utils/data/products-colors';
 import productsSizes from './../../utils/data/products-sizes';
+import axios from 'src/lib/axios'
+import { useState, useEffect } from "react";
 
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
 
 const ProductsFilter = () => {
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
 
   const addQueryParams = () => {
     // query params changes
   }
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Category`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          }
+        });
+
+        setCategories(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchCategories();
+  }, []);
+
 
   return (
     <form className="products-filter" onChange={addQueryParams}>
@@ -30,11 +52,11 @@ const ProductsFilter = () => {
         <div className="products-filter__block">
           <button type="button">Product type</button>
           <div className="products-filter__block__content">
-            {productsTypes.map(type => (
+            {categories.map(category => (
               <Checkbox 
-                key={type.id} 
+                key={category.id} 
                 name="product-type" 
-                label={type.name} 
+                label={category.category} 
               />
             ))}
           </div>

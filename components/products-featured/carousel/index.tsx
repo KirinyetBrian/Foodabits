@@ -26,7 +26,8 @@ type ProductsCarouselType = {
 
 const ProductsCarousel = ({ products }: ProductsCarouselType) => {
   if (!products) return <div>Loading</div>;
-
+  
+console.log("products:"+products)
   return (
     <div className="products-carousel">
       <Swiper 
@@ -40,13 +41,13 @@ const ProductsCarousel = ({ products }: ProductsCarouselType) => {
           <SwiperSlide key={item.id}>
             <ProductItem 
               id={item.id} 
-              name={item.name}
-              price={item.price}
-              color={item.color}
-              discount={item.discount}
-              currentPrice={item.currentPrice}
-              key={item.id}
-              images={item.images} 
+              title={item.title}
+              // price={item.price}
+              // color={item.color}
+              // discount={item.discount}
+              // currentPrice={item.currentPrice}
+              // key={item.id}
+              image_url={item.image_url} 
             />
           </SwiperSlide>
         ))}

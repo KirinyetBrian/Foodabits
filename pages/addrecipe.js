@@ -59,16 +59,25 @@ const newRecipe = () => {
  const submitForm = async (event) => {
         event.preventDefault()
 
+        // const ingredientsArray = [event.target.ingredients.value];
+        // const instructionsArray=[event.target.instructions.value];
+
+        // ingredientsArray.push(event.target.ingredients.value);
+        // instructionsArray.push(event.target.instructions.value);
+
         const formData = new FormData();
-formData.append('title', event.target.title.value);
-formData.append('description', event.target.description.value);
-formData.append('image_url', event.target.image_url.files[0]);
-formData.append('no_of_people', event.target.no_of_people.value);
-formData.append('cooking_time', event.target.cooking_time.value);
-formData.append('difficulty', event.target.difficulty.value);
-formData.append('category_id', event.target.category_id.value);
-formData.append('ingredients', event.target.ingredients.value);
-formData.append('instructions', event.target.instructions.value);
+        const ingredients= '["'+event.target.ingredients.value+'"]'
+        const instructions='["'+event.target.instructions.value+'"]'
+
+        formData.append('title', event.target.title.value);
+        formData.append('description', event.target.description.value);
+        formData.append('image_url', event.target.image_url.files[0]);
+        formData.append('no_of_people', event.target.no_of_people.value);
+        formData.append('cooking_time', event.target.cooking_time.value);
+        formData.append('difficulty', event.target.difficulty.value);
+        formData.append('category_id', event.target.category_id.value);
+        formData.append('ingredients',ingredients);
+        formData.append('instructions',instructions);
          
 const results = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Recipe`, formData, {
   headers: {
@@ -79,15 +88,16 @@ const results = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Rec
         .then(function (result){
           console.log("error:"+result.data.error);
           console.log("status:"+result.data.status);
+
           if (result.data.status=='success') {
-            toast.success(result.message+'!', {
+            toast.success(result.data.message+'!', {
                 position: toast.POSITION.TOP_CENTER
               });
              
              
-              // function openDashboard() {
-              //   router.reload();
-              // }
+             
+                 router.reload();
+             
 
               // setTimeout(openDashboard, 5000);
 
@@ -99,11 +109,11 @@ const results = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Rec
             
           }
         })
-        // .catch(error => {
-        //   toast.error('we cant upload recipe!', {
-        //     position: toast.POSITION.TOP_LEFT
-        //   });
-        // });
+        .catch(error => {
+          toast.error('we cant upload recipe!'+error, {
+            position: toast.POSITION.TOP_LEFT
+          });
+        });
           //  console.log("results:"+results.status);
 
       
@@ -112,13 +122,7 @@ const results = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Rec
     }
     
 
-   // console.log("categories:"+categories.data)
-    // const responseArray = JSON.parse(categories);
-    // const mappedResponse = responseArray.map(obj => {
-     
-    //   return obj;
-    // });
-    // console.log("categories:"+fetchCategories);
+   
   return (
     <Layout>
        <ToastContainer autoClose={8000} />
@@ -139,6 +143,7 @@ const results = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Rec
                   placeholder="Title" 
                   type="text" 
                   name="title"
+                  required
                 />
 
                 
@@ -234,7 +239,7 @@ const results = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Rec
                   type="text" 
                   placeholder="ingredients" 
                   name="ingredients"
-                 
+                 required
                 />
                
               </div>
@@ -245,7 +250,7 @@ const results = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Rec
                   type="text" 
                   placeholder="instructions" 
                   name="instructions"
-                 
+                 required
                 />
                
               </div>
