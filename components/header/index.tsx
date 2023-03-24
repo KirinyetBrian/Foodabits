@@ -76,7 +76,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
             </form>  
             <i onClick={() => setSearchOpen(!searchOpen)}  className="icon-search"></i>
           </button>
-          <Link href="/cart">
+          <Link href="/favourites">
             <button className="btn-cart">
               <i className="icon-cart"></i>
               {cartItems.length > 0 && 
