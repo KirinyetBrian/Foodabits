@@ -50,7 +50,7 @@ const ProductsFilter = () => {
       
       <div className={`products-filter__wrapper ${filtersOpen ? 'products-filter__wrapper--open' : ''}`}>
         <div className="products-filter__block">
-          <button type="button">Product type</button>
+          <button type="button">Food Category</button>
           <div className="products-filter__block__content">
             {categories.map(category => (
               <Checkbox 
