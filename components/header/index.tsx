@@ -5,6 +5,7 @@ import Logo from '../../assets/icons/logo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { RootState } from 'store';
+import axios from 'src/lib/axios'
 
 type HeaderType = {
   isErrorPage?: Boolean;
@@ -20,6 +21,7 @@ const Header = ({ isErrorPage }: HeaderType) => {
   const [searchOpen, setSearchOpen] = useState(false);
   const navRef = useRef(null);
   const searchRef = useRef(null);
+  const [categories, setCategories] = useState([]);
 
   const headerClass = () => {
     if(window.pageYOffset === 0) {
@@ -28,6 +30,26 @@ const Header = ({ isErrorPage }: HeaderType) => {
       setOnTop(false);
     }
   }
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Category`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          }
+        });
+console.log(response)
+        setCategories(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchCategories();
+  }, []);
+
 
   useEffect(() => {
     if(!arrayPaths.includes(router.pathname) || isErrorPage) {
@@ -59,12 +81,20 @@ const Header = ({ isErrorPage }: HeaderType) => {
           <a><h1 className="site-logo">Foodabits</h1></a>
         </Link>
         <nav ref={navRef} className={`site-nav ${menuOpen ? 'site-nav--open' : ''}`}>
-          <Link href="/products">
-            <a>Breakfast</a>
-          </Link>
-          <a href="#">Lunch</a>
-          <a href="#">Supper</a>
-          <a href="/addrecipe">Add Recipe</a>
+        
+
+          {categories.map((category) => (
+             <>
+          
+             <Link href="/products">
+              <a>{category.category}</a>
+            </Link>          
+           
+            
+            </>
+      ))}
+          <a href="/addrecipe">Add Recipe</a> 
+         
           <button className="site-nav__btn"><p>Account</p></button>
         </nav>
 
