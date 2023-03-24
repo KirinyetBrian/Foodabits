@@ -29,6 +29,8 @@ export type ProductType = {
   currentPrice: number;
   punctuation: PunctuationType;
   reviews: ReviewType[];
+  pid:number
+  title:string
 }
 
 export type ProductTypeList = {
@@ -43,7 +45,7 @@ export type ProductTypeList = {
 }
 
 export type ProductStoreType = {
-  id: string;
+  id: number;
   name: string;
   thumb: string;
   price: number;

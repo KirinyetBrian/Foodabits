@@ -10,29 +10,61 @@ import Content from '../../components/product-single/content';
 import Description from '../../components/product-single/description';
 import Reviews from '../../components/product-single/reviews';
 import { server } from '../../utils/server'; 
-
+import axios from '../../src/lib/axios'
+import useSwr from 'swr';
+import { useAuth } from '../../src/hooks/auth';
 // types
 import { ProductType } from 'types';
 
 type ProductPageType = {
-  product: ProductType;
+  pid: ProductType;
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  console.log("pid:"+query.pid)
   const pid = query.pid;
-  const res = await fetch(`${server}/api/product/${pid}`);
-  const product = await res.json();
+  // const res = await fetch(`${server}/api/product/${pid}`);
+  // const product = await res.json();
 
   return {
     props: {
-      product,
+      pid,
     },
   }
 }
 
-const Product = ({ product }: ProductPageType) => {
+const Product = ({ pid }: ProductPageType) => {
   const [showBlock, setShowBlock] = useState('description');
+  // const { user } = useAuth({ middleware: 'auth' })
+  const fetchRecipes = async () => {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/get-recipe?id=${pid}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+     .then(function (result){
+      // console.log("error:"+result.data.error);
+      // console.log("status:"+result.data.Data.id)
+      return result.data.Data;
+      ;})
+    // .then(function(res){
 
+    //   console.log("res:"+res.data.id)
+    //   return response.data
+    // })
+    // .catch(function(error){
+    //   console.log("error:"+error)
+    // }
+      // );
+   return response
+  };
+
+  const { data ,error} = useSwr(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/get-recipe`, fetchRecipes,{ refreshInterval: 1000 });
+  if (error) return <div>Failed to load</div>
+  if (!data) return <div>Loading...</div>
+
+  console.log("data:"+data.id)
   return (
     <Layout>
       <Breadcrumb />
@@ -40,8 +72,8 @@ const Product = ({ product }: ProductPageType) => {
       <section className="product-single">
         <div className="container">
           <div className="product-single__content">
-            <Gallery images={product.images} />
-            <Content product={product} />
+            <Gallery images={data} />
+            <Content product={data} />
           </div>
 
           <div className="product-single__info">
@@ -50,8 +82,9 @@ const Product = ({ product }: ProductPageType) => {
               <button type="button" onClick={() => setShowBlock('reviews')} className={`btn btn--rounded ${showBlock === 'reviews' ? 'btn--active' : ''}`}>Reviews (2)</button>
             </div>
 
-            <Description show={showBlock === 'description'} />
-            <Reviews product={product} show={showBlock === 'reviews'} />
+            <Description show={data}  />
+            {/* <Description  show={showBlock === 'description'} /> */}
+            {/* <Reviews product={data} show={showBlock === 'reviews'} /> */}
           </div>
         </div>
       </section>

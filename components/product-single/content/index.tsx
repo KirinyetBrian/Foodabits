@@ -36,7 +36,7 @@ const Content = ({ product }: ProductContent) => {
   const addToCart = () => {
     const productToSave: ProductStoreType = { 
       id: product.id,
-      name: product.name,
+      name: product.title,
       thumb: product.images ? product.images[0] : '',
       price: product.currentPrice,
       count: count,
@@ -56,19 +56,23 @@ const Content = ({ product }: ProductContent) => {
     <section className="product-content">
       <div className="product-content__intro">
         <h5 className="product__id">Product ID:<br></br>{product.id}</h5>
-        <span className="product-on-sale">Sale</span>
-        <h2 className="product__name">{product.name}</h2>
+        <span className="product-on-sale">Try {product.title}</span>
+        {/* <h2 className="product__name">{product.title}</h2> */}
 
         <div className="product__prices">
-          <h4>${ product.currentPrice }</h4>
-          {product.discount &&
-            <span>${ product.price }</span>
+          <h4>Serving:{ product.no_of_people } people</h4>
+          {product.no_of_people &&
+            <span>{ product.no_of_people }</span>
           }
+         
         </div>
+        <br></br>
+        <br></br>
+        <h5><span> Cooking Time : { product.cooking_time} minutes</span></h5>
       </div>
 
       <div className="product-content__filters">
-        <div className="product-filter-item">
+        {/* <div className="product-filter-item">
           <h5>Color:</h5>
           <div className="checkbox-color-wrapper">
             {productsColors.map(type => (
@@ -82,8 +86,8 @@ const Content = ({ product }: ProductContent) => {
               />
             ))}
           </div>
-        </div>
-        <div className="product-filter-item">
+        </div> */}
+        {/* <div className="product-filter-item">
           <h5>Size: <strong>See size table</strong></h5>
           <div className="checkbox-color-wrapper">
             <div className="select-wrapper">
@@ -95,8 +99,8 @@ const Content = ({ product }: ProductContent) => {
               </select>
             </div>
           </div>
-        </div>
-        <div className="product-filter-item">
+        </div> */}
+        {/* <div className="product-filter-item">
           <h5>Quantity:</h5>
           <div className="quantity-buttons">
             <div className="quantity-button">
@@ -112,7 +116,7 @@ const Content = ({ product }: ProductContent) => {
             <button type="submit" onClick={() => addToCart()} className="btn btn--rounded btn--yellow">Add to cart</button>
             <button type="button" onClick={toggleFav} className={`btn-heart ${isFavourite ? 'btn-heart--active' : ''}`}><i className="icon-heart"></i></button>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
