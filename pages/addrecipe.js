@@ -18,7 +18,7 @@ const newRecipe = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [categories, setCategories] = useState([]);
-
+  const router = useRouter()
   // const categories =  axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Category`,{
   //   headers: {
   //     'Content-Type': 'application/json',
@@ -68,7 +68,8 @@ const newRecipe = () => {
         const formData = new FormData();
         const ingredients= '["'+event.target.ingredients.value+'"]'
         const instructions='["'+event.target.instructions.value+'"]'
-
+        
+        
         formData.append('title', event.target.title.value);
         formData.append('description', event.target.description.value);
         formData.append('image_url', event.target.image_url.files[0]);
@@ -95,12 +96,16 @@ const results = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/Rec
               });
              
              
-             
-                 router.reload();
-             
+              function openDashboard() {
+                // router.reload();
+                router.push('/products');
 
-              // setTimeout(openDashboard, 5000);
+              }
 
+              setTimeout(openDashboard, 5000);
+                
+               
+             
      } else {
 
             toast.error(result.data.message+'!', {
