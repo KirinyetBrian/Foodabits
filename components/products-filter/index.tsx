@@ -62,14 +62,14 @@ const ProductsFilter = () => {
           </div>
         </div>
 
-        <div className="products-filter__block">
+        {/* <div className="products-filter__block">
           <button type="button">Price</button>
           <div className="products-filter__block__content">
             <Range min={0} max={20} defaultValue={[3, 10]} tipFormatter={value => `${value}%`} />
           </div>
         </div>
-        
-        <div className="products-filter__block">
+         */}
+        {/* <div className="products-filter__block">
           <button type="button">Size</button>
           <div className="products-filter__block__content checkbox-square-wrapper">
             {productsSizes.map(type => (
@@ -80,9 +80,9 @@ const ProductsFilter = () => {
                 label={type.label} />
             ))}
           </div>
-        </div>
+        </div> */}
         
-        <div className="products-filter__block">
+        {/* <div className="products-filter__block">
           <button type="button">Color</button>
           <div className="products-filter__block__content">
             <div className="checkbox-color-wrapper">
@@ -91,7 +91,7 @@ const ProductsFilter = () => {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
 
         <button type="submit" className="btn btn-submit btn--rounded btn--yellow">Apply</button>
       </div>
