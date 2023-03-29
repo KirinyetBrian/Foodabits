@@ -6,7 +6,7 @@ import Subscribe from '../components/subscribe';
 import { useAuth } from '../src/hooks/auth';
 
 const IndexPage = () => {
-  const { user } = useAuth({ middleware: 'auth' })
+  // const { user } = useAuth({ middleware: 'auth' })
   return (
     <Layout>
       <PageIntro />

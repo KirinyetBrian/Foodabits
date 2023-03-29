@@ -1,18 +1,24 @@
-import ApplicationLogo from '@/components/ApplicationLogo'
-import AuthCard from '@/components/AuthCard'
-import Button from '@/components/Button'
-import GuestLayout from '@/components/Layouts/GuestLayout'
-import Input from '@/components/Input'
-import InputError from '@/components/InputError'
-import Label from '@/components/Label'
+import ApplicationLogo from '/components/ApplicationLogo'
+import AuthCard from '/components/AuthCard'
+import Button from '/components/Button'
+import GuestLayout from '/components/Layouts/GuestLayout'
+import Input from '/components/Input'
+import InputError from '/components/InputError'
+import Label from '/components/Label'
 import Link from 'next/link'
-import { useAuth } from '@/hooks/auth'
+import { useAuth } from '/src/hooks/auth'
 import { useState } from 'react'
+import Layout from '../layouts/Main'; 
+import AuthSessionStatus from '/components/AuthSessionStatus';
+
+
+
+
 
 const Register = () => {
     const { register } = useAuth({
         middleware: 'guest',
-        redirectIfAuthenticated: '/dashboard',
+        redirectIfAuthenticated: '/',
     })
 
     const [name, setName] = useState('')
@@ -34,23 +40,31 @@ const Register = () => {
     }
 
     return (
-        <GuestLayout>
-            <AuthCard
-                logo={
-                    <Link href="/">
-                        <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
-                    </Link>
-                }>
-                <form onSubmit={submitForm}>
+        <Layout>
+        <section className="form-page">
+          <div className="container">
+            <div className="back-button-section">
+              <Link href="/">
+                <a><i className="icon-left"></i> Back to store</a>
+              </Link>
+            </div>
+    
+            <div className="form-block">
+              <h2 className="form-block__title">Create an account and Live healthy</h2>
+              <p className="form-block__description"></p>
+              
+          
+              <form className="form" onSubmit={submitForm} >
                     {/* Name */}
-                    <div>
-                        <Label htmlFor="name">Name</Label>
+                    <div className="form__input-row">
+                      
 
                         <Input
                             id="name"
                             type="text"
                             value={name}
-                            className="block mt-1 w-full"
+                            className="form__input" 
+                            placeholder="name"
                             onChange={event => setName(event.target.value)}
                             required
                             autoFocus
@@ -60,14 +74,15 @@ const Register = () => {
                     </div>
 
                     {/* Email Address */}
-                    <div className="mt-4">
-                        <Label htmlFor="email">Email</Label>
+                    <div className="form__input-row">
+                     
 
                         <Input
                             id="email"
                             type="email"
                             value={email}
-                            className="block mt-1 w-full"
+                            className="form__input" 
+                            placeholder="email"
                             onChange={event => setEmail(event.target.value)}
                             required
                         />
@@ -76,14 +91,15 @@ const Register = () => {
                     </div>
 
                     {/* Password */}
-                    <div className="mt-4">
-                        <Label htmlFor="password">Password</Label>
+                    <div className="form__input-row">
+                      
 
                         <Input
                             id="password"
                             type="password"
                             value={password}
-                            className="block mt-1 w-full"
+                            placeholder="password"
+                            className="form__input" 
                             onChange={event => setPassword(event.target.value)}
                             required
                             autoComplete="new-password"
@@ -96,16 +112,15 @@ const Register = () => {
                     </div>
 
                     {/* Confirm Password */}
-                    <div className="mt-4">
-                        <Label htmlFor="passwordConfirmation">
-                            Confirm Password
-                        </Label>
+                    <div className="form__input-row">
+                      
 
                         <Input
                             id="passwordConfirmation"
                             type="password"
+                            placeholder="Confirm password"
                             value={passwordConfirmation}
-                            className="block mt-1 w-full"
+                            className="form__input" 
                             onChange={event =>
                                 setPasswordConfirmation(event.target.value)
                             }
@@ -119,17 +134,20 @@ const Register = () => {
                     </div>
 
                     <div className="flex items-center justify-end mt-4">
-                        <Link
-                            href="/login"
-                            className="underline text-sm text-gray-600 hover:text-gray-900">
-                            Already registered?
-                        </Link>
-
-                        <Button className="ml-4">Register</Button>
+                     
+                        <button type="submit" className="btn btn--rounded btn--yellow btn-submit">Sign up</button>
                     </div>
+                    <p className="form__signup-link">
+              <Link href="/login">
+                <a href="#">Are you already a member?</a>
+              </Link>
+            </p>
                 </form>
-            </AuthCard>
-        </GuestLayout>
+                </div>
+                </div>
+                </section>
+                </Layout> 
+        
     )
 }
 

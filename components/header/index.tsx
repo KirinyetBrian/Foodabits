@@ -6,15 +6,18 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { RootState } from 'store';
 import axios from 'src/lib/axios'
+import { useAuth } from 'src/hooks/auth';
 
 type HeaderType = {
   isErrorPage?: Boolean;
 }
 
+
 const Header = ({ isErrorPage }: HeaderType) => {
   const router = useRouter();
-  const { cartItems } = useSelector((state: RootState)  => state.cart);
+  const { cartItems } = useSelector((state:RootState)  => state.cart);
   const arrayPaths = ['/'];  
+  // const { logout, user } = useAuth({ middleware: 'auth' })
 
   const [onTop, setOnTop] = useState(( !arrayPaths.includes(router.pathname) || isErrorPage ) ? false : true);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -117,6 +120,8 @@ console.log(response)
           <Link href="/login">
             <button className="site-header__btn-avatar"><i className="icon-avatar"></i></button>
           </Link>
+
+          {/* <button onClick={logout}>Logout</button> */}
           <button 
             onClick={() => setMenuOpen(true)} 
             className="site-header__btn-menu">
