@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { useAuth } from '/src/hooks/auth';
 import AuthCard from '/components/AuthCard';
 import AuthSessionStatus from '/components/AuthSessionStatus';
-import { useState } from 'react'
-import Label from '/components/Label'
+import { useState } from 'react';
+import Label from '/components/Label';
 import Input from '/components/Input'
 import InputError from '/components/InputError' 
 

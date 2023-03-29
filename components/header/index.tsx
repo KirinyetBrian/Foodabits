@@ -97,6 +97,7 @@ console.log(response)
             </>
       ))}
           <a href="/addrecipe">Add Recipe</a> 
+          <a href="/products">My Recipe</a> 
          
           <button className="site-nav__btn"><p>Account</p></button>
         </nav>

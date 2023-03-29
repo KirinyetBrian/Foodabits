@@ -6,7 +6,7 @@ import Subscribe from '../components/subscribe';
 import { useAuth } from '../src/hooks/auth';
 
 const IndexPage = () => {
-  // const { user } = useAuth({ middleware: 'auth' })
+  const { user } = useAuth({ middleware: 'auth' })
   return (
     <Layout>
       <PageIntro />
@@ -16,21 +16,21 @@ const IndexPage = () => {
           <article style={{backgroundImage: 'url(/images/slider-2.jpg)'}} className="featured-item featured-item-large">
             <div className="featured-item__content">
               <h3>Hydrate all throughout the day!</h3>
-              <a href="#" className="btn btn--rounded">Show Collection</a>
+              <a href="/products" className="btn btn--rounded">Show Collection</a>
             </div>
           </article>
           
           <article style={{backgroundImage: 'url(/images/slider-5.jpg)'}} className="featured-item featured-item-small-first">
             <div className="featured-item__content">
               <h3>Eat fruits</h3>
-              <a href="#" className="btn btn--rounded">More details</a>
+              <a href="/products" className="btn btn--rounded">More details</a>
             </div>
           </article>
           
           <article style={{backgroundImage: 'url(/images/slider-7.jpg)'}} className="featured-item featured-item-small">
             <div className="featured-item__content">
               <h3>Avoid Junk!</h3>
-              <a href="#" className="btn btn--rounded">VIEW ALL</a>
+              <a href="/products" className="btn btn--rounded">VIEW ALL</a>
             </div>
           </article>
         </div>
